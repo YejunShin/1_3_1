@@ -1,0 +1,111 @@
+import turtle as trtl
+import random as rand
+# this line takes the player's choice of rock ,paper, or scissors
+answer=False
+#the computer randomly chooses a number
+chosen = rand.randint(1,3)
+#the images
+rock="rock.gif"
+paper="paper.gif"
+sciz="sciz.gif"
+pwin="The battle is won!"
+plose="YOU LOSE!"
+ties="BRUH"
+wn=trtl.Screen()
+wn.addshape(rock)
+wn.addshape(paper)
+wn.addshape(sciz)
+p=trtl.Turtle()
+c=trtl.Turtle()
+writer=trtl.Turtle()
+r=trtl.Turtle()
+r.hideturtle()
+click=trtl.Turtle()
+click.hideturtle()
+p.penup()
+p.goto(300,0)
+c.penup()
+c.goto(-300,0)
+writer.penup()
+writer.goto(0,100)
+writer.pendown()
+writer.color("red")
+writer.hideturtle()
+writer.write("PRESS SPACE FOR RESULTS",align="center",font=("Arial", 40, "bold"))
+r.color("blue")
+while answer==False:
+  player = input('rock (r), paper (p) or scissors (s)?')
+  if player=='r' or player== 'p' or player== 's':
+    answer=True
+    break
+#assigns a image to player
+if player=='r':
+  p.shape(rock)
+  answer=True
+elif player=='p':
+  p.shape(paper)
+  answer=True
+elif player=='s':
+  p.shape(sciz)
+  answer=True
+#assigns a rock, paper or scissor to the computer
+if chosen==1:
+  computer='r'
+  c.shape(rock)
+elif chosen==2:
+  computer='p'
+  c.shape(paper)
+elif chosen==3:
+  computer = 's'
+  c.shape(sciz)
+# decides if the computer wins or the player wins or a draw
+def players():
+  if player == 'r' and computer == 's':
+    r.write(pwin,align="center",font=("Arial", 40, "bold"))
+    writer.clear()
+  elif player == 'r' and computer == 'p':
+    r.write(plose,align="center",font=("Arial", 40, "bold"))
+    writer.clear()
+  elif player == 's' and computer == 'p':
+    r.write(pwin,align="center",font=("Arial", 40, "bold"))
+    writer.clear()
+def computers():
+  if player == 's' and computer == 'r':
+    r.write(plose,align="center",font=("Arial", 40, "bold"))
+    writer.clear()
+  elif player == 'p' and computer == 'r':
+    r.write(plose,align="center",font=("Arial", 40, "bold"))
+    writer.clear()
+  elif player == 'p' and computer == 's':
+    r.write(pwin,align="center",font=("Arial", 40, "bold"))
+    writer.clear()
+def tie():
+  if player == computer:
+    r.write(ties,align="center",font=("Arial", 40, "bold"))
+    writer.clear()
+#the fuction moves both turtles to the middle
+def movement():
+  p.goto(0,0)
+  c.goto(0,0)
+  click.color("yellow")
+  click.write("CLICK!",align="center",font=("Arial", 40, "bold"))
+def replay():
+  wn.clear()
+def results(x,y):
+#both loops print the result mutiple times
+  for i in range(3):
+    players()
+    r.penup()
+    r.goto(0,-50)
+  for i in range(3):
+    computers()
+    r.penup()
+    r.goto(0,-50)
+  for i in range(3):
+    tie()
+    r.penup()
+    r.goto(0,-50)
+  click.clear()
+wn.onkeypress(movement,'space')
+wn.onclick(results)
+wn.listen()
